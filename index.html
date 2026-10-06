@@ -343,41 +343,35 @@ var Audio_ = (function(){
 ====================================================================== */
 var PHASES = [
 {
-    id: 'testing', name: 'Testing Phase', short: 'TESTING', game: 'testing',
-    color: '#f7768e',
-    classify: [
-      { scenario:'A typo in the footer copyright year.', level:'Low' },
-      { scenario:"The checkout page sometimes doesn't save the shipping address.", level:'Medium' },
-      { scenario:"Customer payment data is visible to other logged-in users.", level:'High' }
-    ],
+    id: 'deployment', name: 'Deployment Phase', short: 'DEPLOY', game: 'deployment',
+    color: '#e0af68',
+    process: ['Staging', 'Release', 'Production', 'Monitoring', 'Feedback'],
     scenarios: [
-      { t:'Load Testing', scenario:'The login system crashes when 500 users access it at the same time.', prompt:'What type of testing is most relevant here?' },
-      { t:'Bug', scenario:'A small visual problem appears in a button on the page.', prompt:'What concept identifies this problem?' },
-      { t:'Verification', scenario:'The team checks that the app was built exactly as the specification described.', prompt:'Which concept is this?' },
-      { t:'Validation', scenario:"The team checks that the app actually solves the user's real problem.", prompt:'Which concept is this?' },
-      { t:'Automation', scenario:'Tests run by themselves every night, with no one clicking through the app.', prompt:'Which concept is this?' },
-      { t:'Integration Test', scenario:'The payment module is tested together with the shipping module.', prompt:'Which concept is this?' },
-      { t:'System Test', scenario:'The whole, complete application is tested end-to-end before launch.', prompt:'Which concept is this?' },
-      { t:'Acceptance Testing', scenario:"The client tries the finished app to confirm it's ready to accept.", prompt:'Which concept is this?' },
-      { t:'Performance Testing', scenario:'The team checks how fast pages load under normal, everyday traffic.', prompt:'Which concept is this?' },
-      { t:'Test Plan', scenario:'A tester writes down what will be tested, how, and by when, before testing starts.', prompt:'Which concept is this?' }
+      { t:'Rollback', scenario:'The latest update causes unexpected problems in production.', prompt:'What should you use to return to the previous stable version?' },
+      { t:'Hotfix', scenario:'A critical problem appears in production and needs an immediate fix.', prompt:'Which concept is this?' },
+      { t:'Patch', scenario:'A small fix is released to solve one specific known issue.', prompt:'Which concept is this?' },
+      { t:'Staging Environment', scenario:'The team tests new changes on a copy of production before releasing them.', prompt:'Which concept is this?' },
+      { t:'Production Environment', scenario:'Real users are currently using this live system.', prompt:'Which concept is this?' },
+      { t:'Monitoring', scenario:'The team keeps watching the system after launch to catch problems early.', prompt:'Which concept is this?' },
+      { t:'Logging', scenario:'Errors and events are written to a file so the team can review them later.', prompt:'Which concept is this?' },
+      { t:'Feedback', scenario:"Users send comments about what they'd like improved next.", prompt:'Which concept is this?' },
+      { t:'Upgrade', scenario:'The system moves from version 2.0 to the more powerful version 3.0.', prompt:'Which concept is this?' },
+      { t:'Discontinued', scenario:'An old feature is removed and will no longer be maintained.', prompt:'Which concept is this?' }
     ],
     terms: [
-      { t:'Testing', d:'Checking that software works and finding bugs before release.' },
-      { t:'Quality Assurance', d:'The ongoing process of making sure a product meets quality standards.' },
-      { t:'Bug', d:'An error in code that causes unexpected behavior.' },
-      { t:'Defect', d:"A flaw found in the software after it was built, often used like 'bug.'" },
-      { t:'Verification', d:'Checking that the product was built correctly, according to spec.' },
-      { t:'Validation', d:"Checking that the product meets the user's real needs." },
-      { t:'Severity', d:'How serious or damaging a problem is.' },
-      { t:'Priority', d:'How urgently a problem needs to be fixed.' },
-      { t:'Automation', d:'Using tools to run tests automatically instead of by hand.' },
-      { t:'Load Testing', d:'Checking how a system performs under many simultaneous users.' },
-      { t:'Test Plan', d:'A document that outlines what, how, and when to test.' },
-      { t:'Performance Testing', d:'Checking how fast and stable a system is under normal use.' },
-      { t:'Acceptance Testing', d:'Checking that software is ready for the client or user to accept.' },
-      { t:'System Test', d:'Testing the complete, integrated system as a whole.' },
-      { t:'Integration Test', d:'Testing that different modules work correctly together.' }
+      { t:'Release', d:'A version of the software made available to users.' },
+      { t:'Production Environment', d:'The live system that real users actually use.' },
+      { t:'Staging Environment', d:'A testing copy of production, used before releasing changes.' },
+      { t:'Patch', d:'A small update that fixes a specific problem.' },
+      { t:'Update', d:'A new version that adds features or improvements.' },
+      { t:'Maintenance', d:'Ongoing work to keep software running well after release.' },
+      { t:'Hotfix', d:'An urgent fix sent out quickly for a critical problem.' },
+      { t:'Monitoring', d:'Continuously watching a system to catch problems early.' },
+      { t:'Logging', d:'Recording events and errors so they can be reviewed later.' },
+      { t:'Feedback', d:'Input from users about what to improve or fix.' },
+      { t:'Upgrade', d:'Moving to a newer, more capable version of a system.' },
+      { t:'Discontinued', d:'No longer supported, maintained, or available.' },
+      { t:'Rollback', d:'Returning to a previous, stable version after a failed update.' }
     ]
   }
 ];;
@@ -897,6 +891,8 @@ function renderPhaseComplete(phase){
       '<div><b>' + st.correct + '/' + st.total + '</b><span>Correct</span></div>' +
       '<div><b>+500</b><span>Phase XP</span></div>' +
     '</div>' +
+    '<div class="final-actions">' +
+      '<button type="button" class="btn primary" data-action="go-final">VIEW FINAL RESULTS ' + ICON.arrow + '</button>' +
     '</div></div>';
   setStage(html);
   $('#hudPhase').style.display = 'none';
